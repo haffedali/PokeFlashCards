@@ -7,7 +7,7 @@ const Answerbank = ({answers, dragItem, dragOverItem, handleSort, answerBank, se
             <List>
                 {
                     answers.map((e, i) => {
-                        return <DraggableAnswerRow key={i} answer={e.base_stat} index={i} dragItem={dragItem} dragOverItem={dragOverItem} handleSort={handleSort} answerBank={answerBank} setAnswerBank={setAnswerBank}/>
+                        return <DraggableAnswerRow key={i} answer={e.base_stat} stat={e.stat.name} index={i} dragItem={dragItem} dragOverItem={dragOverItem} handleSort={handleSort} answerBank={answerBank} setAnswerBank={setAnswerBank}/>
                     })
                 }
             </List>

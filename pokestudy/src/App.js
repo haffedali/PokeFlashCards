@@ -15,7 +15,7 @@ function App() {
   const dragOverItem = useRef(null);
 
   const handleSort = (answerBank, setAnswerBank) => {
-    console.log(dragItem.current, dragOverItem.current);
+    // console.log(dragItem.current, dragOverItem.current);
     let _answerBank = [...answerBank];
 
     const draggedItem = _answerBank.splice(dragItem.current, 1)[0];
@@ -26,7 +26,7 @@ function App() {
     //reset refs
     dragItem.current = null;
     dragOverItem.current = null;
-    console.log(_answerBank, answerBank);
+    // console.log(_answerBank, answerBank);
     setAnswerBank(_answerBank);
   };
 
@@ -35,7 +35,7 @@ function App() {
       .then((res) => res.json())
       .then(
         (res) => {
-          console.log(res);
+          // console.log(res);
           setAnswerBank(res.stats);
           setName(res.name);
           setUrl(res.sprites.other["official-artwork"].front_default);

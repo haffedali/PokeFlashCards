@@ -1,7 +1,12 @@
 import React from "react";
 import { ListItem, ListItemText, Paper, Typography } from "@mui/material";
-const DraggableAnswerRow = ({ answer, index, dragItem, dragOverItem, handleSort, answerBank, setAnswerBank }) => {
-    const onDragStart = (e, i) => {
+import { useStyles } from "./DraggableAnswerRow.styles";
+import utils from "../../util";
+const DraggableAnswerRow = ({ answer, stat, index, dragItem, dragOverItem, handleSort, answerBank, setAnswerBank }) => {
+  let colorWidth = utils.generateStatRowColorAndFill(stat, answer)
+  const classes = useStyles(colorWidth)
+  console.log(colorWidth)  
+  const onDragStart = (e, i) => {
         dragItem.current = index
         console.log('drag start', dragItem.current)
     }
@@ -9,19 +14,14 @@ const DraggableAnswerRow = ({ answer, index, dragItem, dragOverItem, handleSort,
       dragOverItem.current = index
       console.log('drag over', dragOverItem.current)
     }
-    const onDragEnd = (e, i) => {
-        console.log('drag end', i)
 
-    }
-
+    // console.log(answerBank)
   return (
-    <div draggable onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={() => handleSort(answerBank, setAnswerBank)}>
-      <Paper>
-        <ListItem>
+      <Paper className={classes.statBarContainer} elevation={5} draggable onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={() => handleSort(answerBank, setAnswerBank)}>
+        <ListItem className={classes.statBar}>
           <ListItemText primary={answer} />
         </ListItem>
       </Paper>
-    </div>
   );
 };
 
