@@ -4,11 +4,15 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Answerbank from "./composite-componants/AnswerBank/AnswerBank";
 
 function App() {
+  const Pokemon = new Array("Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon","Charizard","Squirtle","Wartortle","Blastoise","Caterpie","Metapod","Butterfree","Weedle","Kakuna","Beedrill","Pidgey","Pidgeotto","Pidgeot","Rattata","Raticate","Spearow","Fearow","Ekans","Arbok","Pikachu","Raichu","Sandshrew","Sandslash","Nidoran","Nidorina","Nidoqueen","Nidoran","Nidorino","Nidoking","Clefairy","Clefable","Vulpix","Ninetales","Jigglypuff","Wigglytuff","Zubat","Golbat","Oddish","Gloom","Vileplume","Paras","Parasect","Venonat","Venomoth","Diglett","Dugtrio","Meowth","Persian","Psyduck","Golduck","Mankey","Primeape","Growlithe","Arcanine","Poliwag","Poliwhirl","Poliwrath","Abra","Kadabra","Alakazam","Machop","Machoke","Machamp","Bellsprout","Weepinbell","Victreebel","Tentacool","Tentacruel","Geodude","Graveler","Golem","Ponyta","Rapidash","Slowpoke","Slowbro","Magnemite","Magneton","Farfetch'd","Doduo","Dodrio","Seel","Dewgong","Grimer","Muk","Shellder","Cloyster","Gastly","Haunter","Gengar","Onix","Drowzee","Hypno","Krabby","Kingler","Voltorb","Electrode","Exeggcute","Exeggutor","Cubone","Marowak","Hitmonlee","Hitmonchan","Lickitung","Koffing","Weezing","Rhyhorn","Rhydon","Chansey","Tangela","Kangaskhan","Horsea","Seadra","Goldeen","Seaking","Staryu","Starmie","Mr. Mime","Scyther","Jynx","Electabuzz","Magmar","Pinsir","Tauros","Magikarp","Gyarados","Lapras","Ditto","Eevee","Vaporeon","Jolteon","Flareon","Porygon","Omanyte","Omastar","Kabuto","Kabutops","Aerodactyl","Snorlax","Articuno","Zapdos","Moltres","Dratini","Dragonair","Dragonite","Mewtwo","Mew");
+
   const [answerBank, setAnswerBank] = useState([]);
+  const [currentPokemon, setCurrentPokemon] = useState('pikachu')
   const [name, setName] = useState();
   const [url, setUrl] = useState();
   const dragItem = useRef(null);
@@ -29,9 +33,14 @@ function App() {
     // console.log(_answerBank, answerBank);
     setAnswerBank(_answerBank);
   };
+  const handleSetNewPokemon = () => {
+    let i = Math.floor(Math.random()*150)
+
+    setCurrentPokemon(Pokemon[i].toLowerCase())
+  }
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon/pikachu", {})
+    fetch(`https://pokeapi.co/api/v2/pokemon/${currentPokemon}`, {})
       .then((res) => res.json())
       .then(
         (res) => {
@@ -44,7 +53,7 @@ function App() {
           console.log(err);
         }
       );
-  }, []);
+  }, [currentPokemon]);
 
   function PokemonDisplay({ name, url }) {
     return (
@@ -74,8 +83,8 @@ function App() {
           />
         </CardContent>
         <CardActions>
-          {/* <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button> */}
+          <Button onClick={()=>handleSetNewPokemon()} size="small">Share</Button>
+          {/* <Button size="small">Learn More</Button> */}
         </CardActions>
       </Card>
     );
