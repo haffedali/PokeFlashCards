@@ -1,6 +1,6 @@
 import { duration } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import utils from "../../util";
+import utils from "../../utils";
 
 export const useStyles = makeStyles({
   container: {
@@ -11,6 +11,8 @@ export const useStyles = makeStyles({
   statBarContainer: {
     padding: "1vh",
     margin: "2vh",
+    marginTop: '2.7vh',
+    height: '4vh'
   },
   gridContainer: {},
   buttonContainer: {
@@ -21,7 +23,7 @@ export const useStyles = makeStyles({
   statBar: {
     boxShadow:
       "inset 1px 4px 0 rgb(255 255 255 / 40%), inset -1px -1px 0 rgb(0 0 0 / 30%)",
-    height: "12px",
+    height: "3vh",
     backgroundColor: (props) => props[0],
     width: (props) => props[1],
     animationName: "PokemonStatBar-anim",

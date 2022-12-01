@@ -1,18 +1,17 @@
 import React from "react";
 import { ListItem, ListItemText, Paper, Typography } from "@mui/material";
 import { useStyles } from "./DraggableAnswerRow.styles";
-import utils from "../../util";
+import utils from "../../utils";
 const DraggableAnswerRow = ({ answer, stat, index, dragItem, dragOverItem, handleSort, answerBank, setAnswerBank }) => {
   let colorWidth = utils.generateStatRowColorAndFill(stat, answer)
   const classes = useStyles(colorWidth)
-  console.log(colorWidth)  
   const onDragStart = (e, i) => {
         dragItem.current = index
-        console.log('drag start', dragItem.current)
+        // console.log('drag start', dragItem.current)
     }
     const onDragEnter = (e, i) => {
       dragOverItem.current = index
-      console.log('drag over', dragOverItem.current)
+      // console.log('drag over', dragOverItem.current)
     }
 
     // console.log(answerBank)

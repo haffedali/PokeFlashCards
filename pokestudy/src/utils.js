@@ -124,6 +124,35 @@ const utils = {
     }
     return colorWidth;
   },
+
+
+  randomizedStats: (statArray) => {
+    function shuffle(array) {
+      let newArray = array
+      for (let i = newArray.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      // console.log(newArray)
+      return newArray
+    }
+    const returnArray = shuffle(statArray);
+    // console.log(returnArray)
+    return returnArray
+  },
+
+
+  checkAnswerArray: (array, targetArray) => {
+    let compArray = []
+    let targetCompArray = []
+    for (let i=0;i<array.length;i++){
+      compArray.push(array[i]["base_stat"]);
+      targetCompArray.push(targetArray[i]["base_stat"]);
+    }
+    console.log(compArray)
+    console.log(targetCompArray)
+    return compArray == targetCompArray;
+  }
 };
 
 export default utils;

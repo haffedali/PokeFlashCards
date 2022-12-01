@@ -7,11 +7,13 @@ import CardMedia from "@mui/material/CardMedia";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Answerbank from "./composite-componants/AnswerBank/AnswerBank";
+import utils from "./utils";
 
 function App() {
   const Pokemon = new Array("Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon","Charizard","Squirtle","Wartortle","Blastoise","Caterpie","Metapod","Butterfree","Weedle","Kakuna","Beedrill","Pidgey","Pidgeotto","Pidgeot","Rattata","Raticate","Spearow","Fearow","Ekans","Arbok","Pikachu","Raichu","Sandshrew","Sandslash","Nidoran","Nidorina","Nidoqueen","Nidoran","Nidorino","Nidoking","Clefairy","Clefable","Vulpix","Ninetales","Jigglypuff","Wigglytuff","Zubat","Golbat","Oddish","Gloom","Vileplume","Paras","Parasect","Venonat","Venomoth","Diglett","Dugtrio","Meowth","Persian","Psyduck","Golduck","Mankey","Primeape","Growlithe","Arcanine","Poliwag","Poliwhirl","Poliwrath","Abra","Kadabra","Alakazam","Machop","Machoke","Machamp","Bellsprout","Weepinbell","Victreebel","Tentacool","Tentacruel","Geodude","Graveler","Golem","Ponyta","Rapidash","Slowpoke","Slowbro","Magnemite","Magneton","Farfetch'd","Doduo","Dodrio","Seel","Dewgong","Grimer","Muk","Shellder","Cloyster","Gastly","Haunter","Gengar","Onix","Drowzee","Hypno","Krabby","Kingler","Voltorb","Electrode","Exeggcute","Exeggutor","Cubone","Marowak","Hitmonlee","Hitmonchan","Lickitung","Koffing","Weezing","Rhyhorn","Rhydon","Chansey","Tangela","Kangaskhan","Horsea","Seadra","Goldeen","Seaking","Staryu","Starmie","Mr. Mime","Scyther","Jynx","Electabuzz","Magmar","Pinsir","Tauros","Magikarp","Gyarados","Lapras","Ditto","Eevee","Vaporeon","Jolteon","Flareon","Porygon","Omanyte","Omastar","Kabuto","Kabutops","Aerodactyl","Snorlax","Articuno","Zapdos","Moltres","Dratini","Dragonair","Dragonite","Mewtwo","Mew");
 
   const [answerBank, setAnswerBank] = useState([]);
+  const [correctAnswerBank, setCorrectAnswerBank] = useState([])
   const [currentPokemon, setCurrentPokemon] = useState('pikachu')
   const [name, setName] = useState();
   const [url, setUrl] = useState();
@@ -45,7 +47,12 @@ function App() {
       .then(
         (res) => {
           // console.log(res);
-          setAnswerBank(res.stats);
+          const correctStatArray = res.stats;
+          console.log(correctStatArray)
+          setCorrectAnswerBank(correctStatArray)
+          const randomizedStatArray = utils.randomizedStats(correctAnswerBank)
+          console.log(randomizedStatArray)
+          setAnswerBank(randomizedStatArray);
           setName(res.name);
           setUrl(res.sprites.other["official-artwork"].front_default);
         },
@@ -83,8 +90,10 @@ function App() {
           />
         </CardContent>
         <CardActions>
-          <Button onClick={()=>handleSetNewPokemon()} size="small">Share</Button>
+          <Button onClick={()=>handleSetNewPokemon()} size="small">Next</Button>
           {/* <Button size="small">Learn More</Button> */}
+          <Button onClick={()=>console.log(utils.checkAnswerArray(answerBank,correctAnswerBank))}>Compare</Button>
+          <Button onClick={()=>{console.log(correctAnswerBank)}}>print correct state</Button>
         </CardActions>
       </Card>
     );
