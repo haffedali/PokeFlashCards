@@ -128,7 +128,7 @@ const utils = {
 
   randomizedStats: (statArray) => {
     function shuffle(array) {
-      let newArray = array
+      let newArray = [...array]
       for (let i = newArray.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
@@ -151,7 +151,7 @@ const utils = {
     }
     console.log(compArray)
     console.log(targetCompArray)
-    return compArray == targetCompArray;
+    return compArray.toString() === targetCompArray.toString();
   }
 };
 
