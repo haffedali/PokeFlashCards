@@ -26,6 +26,7 @@ const Answerbank = ({
   handleSort,
   answerBank,
   setAnswerBank,
+  progress
 }) => {
   const stats= ['Health', 'Attack', 'Sp. Atk', 'Defense', 'Sp. Def', 'Speed']
   const classes = useStyles()
@@ -36,7 +37,7 @@ const Answerbank = ({
           <List>
           {stats.map((e, i) => {
               return (
-                <Paper className={classes.statBarLabel} key={`Attribute ${i}`}>
+                <Paper className={progress[i] ? classes.statBarLabelCorrect : classes.statBarLabel} key={`Attribute ${i}`}>
                   <ListItem >
                     {e}
                   </ListItem>

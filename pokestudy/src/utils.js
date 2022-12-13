@@ -149,9 +149,48 @@ const utils = {
       compArray.push(array[i]["base_stat"]);
       targetCompArray.push(targetArray[i]["base_stat"]);
     }
-    console.log(compArray)
-    console.log(targetCompArray)
     return compArray.toString() === targetCompArray.toString();
+  },
+
+  checkSingleAnswers: (array, targetArray) => {
+    let compArray = []
+    let targetCompArray = []
+    let progress = new Array(6)
+    for (let i=0;i<array.length;i++){
+      compArray.push(array[i]["base_stat"]);
+      targetCompArray.push(targetArray[i]["base_stat"]);
+    }
+    if (compArray[0] === targetCompArray[0]){
+      progress[0] = "Health"
+    } else {
+      progress[0] = undefined
+    } 
+    if (compArray[1] === targetCompArray[1]){
+      progress[1] = "Attack"
+    } else {
+      progress[1] = undefined
+    }
+    if (compArray[2] === targetCompArray[2]){
+      progress[2] = "Sp. Atk"
+    } else {
+      progress[2] = undefined
+    }
+    if (compArray[3] === targetCompArray[3]){
+      progress[3] = "Defense"
+    } else {
+      progress[3] = undefined
+    }
+    if (compArray[4] === targetCompArray[4]){
+      progress[4] = "Sp. Def"
+    } else {
+      progress[4] = undefined
+    }
+    if (compArray[5] === targetCompArray[5]){
+      progress[5] = "Speed"
+    } else {
+      progress[5] = undefined
+    }
+    return progress
   }
 };
 

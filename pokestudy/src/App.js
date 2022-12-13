@@ -22,6 +22,7 @@ function App() {
   const [currentPokemon, setCurrentPokemon] = useState('pikachu')
   const [name, setName] = useState();
   const [url, setUrl] = useState();
+  const [progress, setProgress] = useState(new Array(6))
   const [success, setSuccess] = useState(false)
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
@@ -53,9 +54,17 @@ function App() {
 
     setCurrentPokemon(Pokemon[i].toLowerCase())
   }
-  const handleMatchCheck = () => {
-    setSuccess(utils.checkAnswerArray(answerBank, correctAnswerBank))
+  const handleMatchCheck = (answers) => {
+    setSuccess(utils.checkAnswerArray(answers, correctAnswerBank))
   }
+  const handleSingleMatchCheck = () => {
+    console.log(answerBank)
+    console.log(correctAnswerBank)
+    let _progress = utils.checkSingleAnswers(answerBank, correctAnswerBank)
+
+    setProgress(_progress)
+  }
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -79,6 +88,10 @@ function App() {
 
   }, [currentPokemon]);
 
+  useEffect(() => {
+    handleSingleMatchCheck()
+    handleMatchCheck(answerBank)
+  },[answerBank])
   function PokemonDisplay({ name, url }) {
     return (
       <Card sx={{ maxWidth: "50rem" }}>
@@ -93,10 +106,6 @@ function App() {
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          {/* <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography> */}
           <Answerbank
             answers={answerBank}
             dragItem={dragItem}
@@ -104,12 +113,12 @@ function App() {
             handleSort={handleSort}
             answerBank={answerBank}
             setAnswerBank={setAnswerBank}
+            progress={progress}
           />
         </CardContent>
         <CardActions>
           <Button onClick={()=>handleSetNewPokemon()} size="small">Next</Button>
-          {/* <Button size="small">Learn More</Button> */}
-          <Button onClick={()=>handleMatchCheck()}>Check</Button>
+          <Button onClick={()=>handleSingleMatchCheck()}>Check</Button>
           <Button onClick={()=>{console.log(correctAnswerBank)}}>print correct state</Button>
         </CardActions>
         <Snackbar open={success} autoHideDuration={2000} onClose={handleClose}>
