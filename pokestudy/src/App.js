@@ -30,10 +30,14 @@ function App() {
     // console.log(dragItem.current, dragOverItem.current);
     let _answerBank = [...answerBank];
 
-    const draggedItem = _answerBank.splice(dragItem.current, 1)[0];
-
+    [_answerBank[dragItem.current], _answerBank[dragOverItem.current]] =
+    [_answerBank[dragOverItem.current], _answerBank[dragItem.current]]
+    // const draggedItem = _answerBank.splice(dragItem.current, 1)[0];
+    console.log(dragItem.current)
+    console.log(dragOverItem.current)
     // console.log(_answerBank.splice(dragOverItem.current,0,draggedItem))
-    _answerBank.splice(dragOverItem.current, 0, draggedItem);
+    // _answerBank.splice(dragOverItem.current, 0, draggedItem);
+
 
     //reset refs
     dragItem.current = null;
@@ -41,6 +45,9 @@ function App() {
     // console.log(_answerBank, answerBank);
     setAnswerBank(_answerBank);
   };
+
+
+
   const handleSetNewPokemon = () => {
     let i = Math.floor(Math.random()*150)
 
