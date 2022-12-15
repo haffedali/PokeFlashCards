@@ -25,7 +25,7 @@ function App() {
   const [name, setName] = useState();
   const [url, setUrl] = useState();
   const [progress, setProgress] = useState(new Array(6))
-  const [seconds, setSeconds] = useState(0);
+  const [seconds, setSeconds] = useState(60);
   const [success, setSuccess] = useState(false)
   const [score, setScore] = useState(0);
   const [session,setSession] = useState(true);
@@ -115,20 +115,19 @@ function App() {
     handleSuccess();
   },[success])
 
+  useEffect(() => {
+    let interval = null;
+    if (session) {
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds - 1);
+      }, 1000);
+    }
+    if (seconds === 0 ){
+      setSession(false)
+    }
+    return () => clearInterval(interval);
+  }, [session, seconds]);
   
-  // useEffect(() => {
-  //   let interval = null;
-  //   if (session) {
-  //     interval = setInterval(() => {
-  //       setSeconds(seconds => seconds + 1);
-  //     }, 1000);
-  //   } else if (!session && seconds !== 0) {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [session, seconds]);
-
-
   function PokemonDisplay({ name, url }) {
     return (
       <Card className={classes.container}>
@@ -144,7 +143,7 @@ function App() {
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Timer />
+          <Timer session={session} time={seconds}/>
           <Answerbank
             answers={answerBank}
             dragItem={dragItem}

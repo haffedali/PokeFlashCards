@@ -17,6 +17,5 @@ export const useStyles = makeStyles({
         width: '6vw',
         textOverflow: 'clip',
         boxShadow: '0 0 0 2pt green',
-
     }
 })

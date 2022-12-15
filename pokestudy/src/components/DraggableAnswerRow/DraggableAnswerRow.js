@@ -4,7 +4,7 @@ import { useStyles } from "./DraggableAnswerRow.styles";
 import utils from "../../utils";
 const DraggableAnswerRow = ({ answer, stat, index, dragItem, dragOverItem, handleSort, answerBank, setAnswerBank }) => {
   let colorWidth = utils.generateStatRowColorAndFill(stat, answer)
-  console.log(colorWidth)
+  //console.log(colorWidth)
   const classes = useStyles(colorWidth)
   const onDragStart = (e, i) => {
         dragItem.current = index
