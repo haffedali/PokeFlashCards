@@ -22,10 +22,10 @@ const Answerbank = ({
           <List>
           {stats.map((e, i) => {
               return (
-                <Paper className={progress[i] ? classes.statBarLabelCorrect : classes.statBarLabel} key={`Attribute ${i}`}>
-                  <ListItem >
+                <Paper variant="outlined" className={progress[i] ? classes.statBarLabelCorrect : classes.statBarLabel} key={`Attribute ${i}`}>
+                  <div>
                     {e}
-                  </ListItem>
+                  </div>
                 </Paper>
               );
             })}
