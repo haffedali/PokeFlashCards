@@ -4,6 +4,7 @@ import { useStyles } from "./DraggableAnswerRow.styles";
 import utils from "../../utils";
 const DraggableAnswerRow = ({ answer, stat, index, dragItem, dragOverItem, handleSort, answerBank, setAnswerBank }) => {
   let colorWidth = utils.generateStatRowColorAndFill(stat, answer)
+  console.log(colorWidth)
   const classes = useStyles(colorWidth)
   const onDragStart = (e, i) => {
         dragItem.current = index
@@ -17,9 +18,9 @@ const DraggableAnswerRow = ({ answer, stat, index, dragItem, dragOverItem, handl
     // console.log(answerBank)
   return (
       <Paper className={classes.statBarContainer} elevation={5} draggable onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={() => handleSort(answerBank, setAnswerBank)}>
-        <ListItem className={classes.statBar}>
+        <div className={classes.statBar}>
           <ListItemText primary={answer} />
-        </ListItem>
+        </div>
       </Paper>
   );
 };

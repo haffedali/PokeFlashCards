@@ -26,6 +26,7 @@ export const useStyles = makeStyles({
     height: "3vh",
     backgroundColor: (props) => props[0],
     width: (props) => props[1],
+    maxWidth: '100%',
     animationName: "PokemonStatBar-anim",
     animationDuration: ".7s",
     animationFillMode: "forwards",

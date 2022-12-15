@@ -3,21 +3,6 @@ import { List, Grid, Paper, ListItem } from "@mui/material";
 import { useStyles } from "./AnswerBank.styles"
 import DraggableAnswerRow from "../../components/DraggableAnswerRow/DraggableAnswerRow";
 
-function AnswerBankContainer() {
-  return (
-    <div>
-      <Grid item xs={4}>
-        <Paper>Item</Paper>
-      </Grid>
-      <Grid item xs={4}>
-        <Paper>Item</Paper>
-      </Grid>
-      <Grid item xs={4}>
-        <Paper>Item</Paper>
-      </Grid>
-    </div>
-  );
-}
 
 const Answerbank = ({
   answers,

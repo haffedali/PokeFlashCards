@@ -9,24 +9,30 @@ import CardMedia from "@mui/material/CardMedia";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Answerbank from "./composite-componants/AnswerBank/AnswerBank";
+import Timer from "./components/Timer/Timer";
+import { useStyles } from './App.styles.js'
 
 import utils from "./utils";
 
 function App() {
   const Pokemon = new Array("Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon","Charizard","Squirtle","Wartortle","Blastoise","Caterpie","Metapod","Butterfree","Weedle","Kakuna","Beedrill","Pidgey","Pidgeotto","Pidgeot","Rattata","Raticate","Spearow","Fearow","Ekans","Arbok","Pikachu","Raichu","Sandshrew","Sandslash","Nidoran","Nidorina","Nidoqueen","Nidoran","Nidorino","Nidoking","Clefairy","Clefable","Vulpix","Ninetales","Jigglypuff","Wigglytuff","Zubat","Golbat","Oddish","Gloom","Vileplume","Paras","Parasect","Venonat","Venomoth","Diglett","Dugtrio","Meowth","Persian","Psyduck","Golduck","Mankey","Primeape","Growlithe","Arcanine","Poliwag","Poliwhirl","Poliwrath","Abra","Kadabra","Alakazam","Machop","Machoke","Machamp","Bellsprout","Weepinbell","Victreebel","Tentacool","Tentacruel","Geodude","Graveler","Golem","Ponyta","Rapidash","Slowpoke","Slowbro","Magnemite","Magneton","Farfetch'd","Doduo","Dodrio","Seel","Dewgong","Grimer","Muk","Shellder","Cloyster","Gastly","Haunter","Gengar","Onix","Drowzee","Hypno","Krabby","Kingler","Voltorb","Electrode","Exeggcute","Exeggutor","Cubone","Marowak","Hitmonlee","Hitmonchan","Lickitung","Koffing","Weezing","Rhyhorn","Rhydon","Chansey","Tangela","Kangaskhan","Horsea","Seadra","Goldeen","Seaking","Staryu","Starmie","Mr. Mime","Scyther","Jynx","Electabuzz","Magmar","Pinsir","Tauros","Magikarp","Gyarados","Lapras","Ditto","Eevee","Vaporeon","Jolteon","Flareon","Porygon","Omanyte","Omastar","Kabuto","Kabutops","Aerodactyl","Snorlax","Articuno","Zapdos","Moltres","Dratini","Dragonair","Dragonite","Mewtwo","Mew");
-  const Alert = forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
+  // const Alert = forwardRef(function Alert(props, ref) {
+  //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  // });
   const [answerBank, setAnswerBank] = useState([]);
   const [correctAnswerBank, setCorrectAnswerBank] = useState([])
   const [currentPokemon, setCurrentPokemon] = useState('pikachu')
   const [name, setName] = useState();
   const [url, setUrl] = useState();
   const [progress, setProgress] = useState(new Array(6))
+  const [seconds, setSeconds] = useState(0);
   const [success, setSuccess] = useState(false)
+  const [score, setScore] = useState(0);
+  const [session,setSession] = useState(true);
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
+  const classes = useStyles()
   const handleSort = (answerBank, setAnswerBank) => {
     // console.log(dragItem.current, dragOverItem.current);
     let _answerBank = [...answerBank];
@@ -36,8 +42,7 @@ function App() {
     // const draggedItem = _answerBank.splice(dragItem.current, 1)[0];
     console.log(dragItem.current)
     console.log(dragOverItem.current)
-    // console.log(_answerBank.splice(dragOverItem.current,0,draggedItem))
-    // _answerBank.splice(dragOverItem.current, 0, draggedItem);
+
 
 
     //reset refs
@@ -58,19 +63,32 @@ function App() {
     setSuccess(utils.checkAnswerArray(answers, correctAnswerBank))
   }
   const handleSingleMatchCheck = () => {
-    console.log(answerBank)
-    console.log(correctAnswerBank)
     let _progress = utils.checkSingleAnswers(answerBank, correctAnswerBank)
 
     setProgress(_progress)
   }
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
+  // const handleClose = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+  //   setSuccess(false);
+  // };
+
+  const handleSessionStop = () => {
+    setSession(false)
+  }
+
+  const handleSuccess = () => {
+    let _score = score
+    if (success){
+      _score = score + 1
+      handleSetNewPokemon();
     }
+    setScore(_score);
     setSuccess(false);
-  };
+    //handleSessionStop();
+  }
 
   useEffect(() => {
     const fetchData = async ()=> {
@@ -92,9 +110,28 @@ function App() {
     handleSingleMatchCheck()
     handleMatchCheck(answerBank)
   },[answerBank])
+
+  useEffect(()=> {
+    handleSuccess();
+  },[success])
+
+  
+  // useEffect(() => {
+  //   let interval = null;
+  //   if (session) {
+  //     interval = setInterval(() => {
+  //       setSeconds(seconds => seconds + 1);
+  //     }, 1000);
+  //   } else if (!session && seconds !== 0) {
+  //     clearInterval(interval);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [session, seconds]);
+
+
   function PokemonDisplay({ name, url }) {
     return (
-      <Card sx={{ maxWidth: "50rem" }}>
+      <Card className={classes.container}>
         <CardMedia
           component="img"
           alt={name}
@@ -102,10 +139,12 @@ function App() {
           height="250"
           sx={{objectFit: 'contain'}}
         />
+        {/* <Timer /> */}
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
+          <Timer />
           <Answerbank
             answers={answerBank}
             dragItem={dragItem}
@@ -118,14 +157,8 @@ function App() {
         </CardContent>
         <CardActions>
           <Button onClick={()=>handleSetNewPokemon()} size="small">Next</Button>
-          <Button onClick={()=>handleSingleMatchCheck()}>Check</Button>
-          <Button onClick={()=>{console.log(correctAnswerBank)}}>print correct state</Button>
+        <div>{score}</div>
         </CardActions>
-        <Snackbar open={success} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
-        </Alert>
-      </Snackbar>
       </Card>
     );
   }
