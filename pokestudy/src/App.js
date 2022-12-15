@@ -10,6 +10,7 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Answerbank from "./composite-componants/AnswerBank/AnswerBank";
 import Timer from "./components/Timer/Timer";
+import BasicModal from './components/GameOverModal/GameOverModal';
 import { useStyles } from './App.styles.js'
 
 import utils from "./utils";
@@ -25,7 +26,7 @@ function App() {
   const [name, setName] = useState();
   const [url, setUrl] = useState();
   const [progress, setProgress] = useState(new Array(6))
-  const [seconds, setSeconds] = useState(60);
+  const [seconds, setSeconds] = useState(15);
   const [success, setSuccess] = useState(false)
   const [score, setScore] = useState(0);
   const [session,setSession] = useState(true);
@@ -158,6 +159,7 @@ function App() {
           <Button onClick={()=>handleSetNewPokemon()} size="small">Next</Button>
         <div>{score}</div>
         </CardActions>
+        <BasicModal score={score} session={session} />
       </Card>
     );
   }
