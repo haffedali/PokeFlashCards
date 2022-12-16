@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Timer = ({session, time}) => {
+const Timer = ({time}) => {
   return (
     <div >
       <div>
