@@ -16,11 +16,16 @@
 // // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
 
-
 import React from "react";
 import { render } from "react-dom";
 import "./index.css";
 import App from "./App";
+import { ThemeProvider } from "./theme/themeContext";
 
 const root = document.getElementById("root");
-render(<App />, root);
+render(
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>,
+  root
+);

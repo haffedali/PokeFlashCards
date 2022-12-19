@@ -1,8 +1,7 @@
 import { duration } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import utils from "../../utils";
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) =>({
   container: {
     width: "80vw",
     height: "85vh",
@@ -12,7 +11,8 @@ export const useStyles = makeStyles({
     padding: "1vh",
     margin: "2vh",
     marginTop: '2.7vh',
-    height: '4vh'
+    height: '4vh',
+    color: 'blue'
   },
   gridContainer: {},
   buttonContainer: {
@@ -38,4 +38,4 @@ export const useStyles = makeStyles({
       backgroundColor: "#fff",
     },
   },
-});
+}));

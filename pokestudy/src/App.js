@@ -26,7 +26,7 @@ function App() {
   const [name, setName] = useState();
   const [url, setUrl] = useState();
   const [progress, setProgress] = useState(new Array(6))
-  const [seconds, setSeconds] = useState(15);
+  const [seconds, setSeconds] = useState(1500);
   const [success, setSuccess] = useState(false)
   const [score, setScore] = useState(0);
   const [session,setSession] = useState(true);
@@ -35,6 +35,7 @@ function App() {
 
   const classes = useStyles()
   const handleSort = (answerBank, setAnswerBank) => {
+    console.log('fired')
     // console.log(dragItem.current, dragOverItem.current);
     let _answerBank = [...answerBank];
 
