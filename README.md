@@ -1,31 +1,52 @@
 # PokeFlashCards
 Competitive pokemon (VGC 2022) flash cards for personal use
 
-# Getting Started
+## Description
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple web application that pulls data from `pokeapi` and tests the users knowledge on the stats
+of each pokemon. This is meant to be a tool for vgc players and smogon players. You will be given a random gen 1 pokemon (for now
+until I put in time to expand it to all gens) and have to rearrange their stats in the right order. Use your mouse to click and drag the stats, and once you get them all in the right place, the app should moe on to the next pokemon
 
-## Available Scripts
+## Getting Started
 
-In the project directory foldername `pokestudy`, you can run:
+### Dependencies
+React, MUI
 
-### `npm start`
+### Installing
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* How/where to download your program
+* Any modifications needed to be made to files/folders
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Executing program
 
-### `npm test`
+* How to run the program
+* Step-by-step bullets
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm install
+```
 
-### `npm run build`
+```
+npm run start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Authors
+
+Haffed Ali
+*twitter info incoming*
+
+## Version History
+
+* 0.1
+    * Initial build and release
+
+## License
+
+No license yet
+
+## Acknowledgments
+
+Inspiration, code snippets, etc.
+* [awesome-readme](https://github.com/matiassingers/awesome-readme)
+* [epicreact](https://github.com/topics/epicreact-dev)
