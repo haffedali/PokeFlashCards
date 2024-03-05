@@ -9,4 +9,11 @@ export const useStyles = makeStyles({
         height: '100vh'
         // top: '10%'
     },
+    circularProgress: {
+        position: 'relative',
+        left: '35vw',
+        right: '10vw',
+        top: '10vh',
+        height: '25vh'
+    }
 })

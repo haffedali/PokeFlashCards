@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 
 
-export default function PokemonDisplay({name, url}) {
+export default function PokemonDisplay({name, url, status}) {
     return (
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
