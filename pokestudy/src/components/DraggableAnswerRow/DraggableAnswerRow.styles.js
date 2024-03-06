@@ -8,9 +8,9 @@ export const useStyles = makeStyles((theme) =>({
     padding: "0px",
   },
   statBarContainer: {
-    padding: "1vh",
-    margin: "2vh",
-    marginTop: '2.7vh',
+    padding: ".7vh",
+    margin: "1vh",
+    marginTop: '1.7vh',
     height: '4vh',
     color: 'blue'
   },

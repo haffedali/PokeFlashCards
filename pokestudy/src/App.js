@@ -7,7 +7,7 @@ import {
   useRef,
   forwardRef,
 } from "react";
-import Card from "@mui/material/Card";
+import {Card, Paper} from '@mui/material'
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Snackbar from "@mui/material/Snackbar";
@@ -283,18 +283,18 @@ function App() {
     handleSuccess();
   }, [success]);
 
-  useEffect(() => {
-    let interval = null;
-    if (session) {
-      interval = setInterval(() => {
-        setSeconds((seconds) => seconds - 1);
-      }, 1000);
-    }
-    if (seconds === 0) {
-      setSession(false);
-    }
-    return () => clearInterval(interval);
-  }, [session, seconds]);
+  // useEffect(() => {
+  //   let interval = null;
+  //   if (session) {
+  //     interval = setInterval(() => {
+  //       setSeconds((seconds) => seconds - 1);
+  //     }, 1000);
+  //   }
+  //   if (seconds === 0) {
+  //     setSession(false);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [session, seconds]);
 
   function PokemonCardMedia({status, name, url}) {
     if (status === "pending") {
@@ -321,22 +321,15 @@ function App() {
 
   function AppDisplay({ name, url }) {
     return (
-      <Card className={classes.container}>
-        {/* {status === "pending"}
-        <CardMedia
-          component="img"
-          alt={name}
-          image={url}
-          height="250"
-          sx={{ objectFit: "contain" }}
-        /> */}
+      <Paper className={classes.container} >
+        <Card className={classes.cardContainer}>
         <PokemonCardMedia status ={status} name={name} url={url}/>
         {/* <Timer /> */}
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Timer session={session} time={seconds} />
+          <Timer className= {classes.timer} session={session} time={seconds} />
           <Answerbank
             answers={answerBank}
             dragItem={dragItem}
@@ -354,11 +347,12 @@ function App() {
           <div>{score}</div>
         </CardActions>
         <BasicModal score={score} session={session} />
-      </Card>
+        </Card>
+      </Paper>
     );
   }
 
-  return <AppDisplay sx={{ height: "80%" }} name={name} url={url} />;
+  return <AppDisplay name={name} url={url} />;
 }
 
 export default App;

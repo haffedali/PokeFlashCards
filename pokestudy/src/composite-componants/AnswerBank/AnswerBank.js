@@ -17,7 +17,7 @@ const Answerbank = ({
   const classes = useStyles()
   return (
     <div>
-      <Grid container>
+      <Grid container className={classes.answerBank}>
         <Grid item xs={2}>
           <List>
           {stats.map((e, i) => {
@@ -36,6 +36,7 @@ const Answerbank = ({
             {answers.map((e, i) => {
               return (
                 <DraggableAnswerRow
+                  className={classes.draggableAnswerRow}
                   key={`draggable ${i}`}
                   answer={e.base_stat}
                   stat={e.stat.name}

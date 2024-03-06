@@ -5,7 +5,7 @@ export const useStyles = makeStyles({
         padding: '1vh',
         margin:'1vh',
         marginTop: '2.7vh',
-        height: '4vh',
+        height: '2vh',
         width: '6vw',
         textOverflow: 'clip'
     },
@@ -13,9 +13,15 @@ export const useStyles = makeStyles({
         padding: '1vh',
         margin:'1vh',
         marginTop: '2.7vh',
-        height: '4vh',
+        height: '2vh',
         width: '6vw',
         textOverflow: 'clip',
         boxShadow: '0 0 0 2pt green',
+    },
+    draggableAnswerRow: {
+
+    },
+    answerBank: {
+
     }
 })
