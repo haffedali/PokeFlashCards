@@ -21,7 +21,10 @@ export const useStyles = makeStyles({
         left: '35vw',
         right: '10vw',
         top: '10vh',
-        height: '25vh'
+        height: '27.2vh'
+    },
+    cardMedia: {
+        height: '27.2vh'
     },
     answerBank: {
         position: 'relative',

@@ -2,16 +2,11 @@ import "./App.css";
 import {
   useEffect,
   useState,
-  useContext,
-  createContext,
   useRef,
-  forwardRef,
 } from "react";
 import {Card, Paper} from '@mui/material'
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import Box from '@mui/material/Box';
 import CircularProgress from "@mui/material/CircularProgress";
 import CardMedia from "@mui/material/CardMedia";
@@ -25,7 +20,7 @@ import { useStyles } from "./App.styles.js";
 import utils from "./utils";
 
 function App() {
-  const Pokemon = new Array(
+  const Pokemon = [
     "Bulbasaur",
     "Ivysaur",
     "Venusaur",
@@ -177,7 +172,7 @@ function App() {
     "Dragonite",
     "Mewtwo",
     "Mew"
-  );
+  ];
   // const Alert = forwardRef(function Alert(props, ref) {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });
@@ -283,38 +278,34 @@ function App() {
     handleSuccess();
   }, [success]);
 
-  // useEffect(() => {
-  //   let interval = null;
-  //   if (session) {
-  //     interval = setInterval(() => {
-  //       setSeconds((seconds) => seconds - 1);
-  //     }, 1000);
-  //   }
-  //   if (seconds === 0) {
-  //     setSession(false);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [session, seconds]);
+  useEffect(() => {
+    let interval = null;
+    if (session) {
+      interval = setInterval(() => {
+        setSeconds((seconds) => seconds - 1);
+      }, 1000);
+    }
+    if (seconds === 0) {
+      setSession(false);
+    }
+    return () => clearInterval(interval);
+  }, [session, seconds]);
 
   function PokemonCardMedia({status, name, url}) {
     if (status === "pending") {
       return(
-    
-        <Box className={classes.circularProgress}>
-        <CircularProgress size={100}/>
-      </Box>
+        <Box className={classes.circularProgress} height="250">
+          <CircularProgress size={100}/>
+        </Box>
       )
     }
-
     return (
-
-
       <CardMedia
         component="img"
         alt={name}
         image={url}
-        height="250"
         sx={{ objectFit: "contain" }}
+        className={classes.cardMedia}
       />
     );
   }
