@@ -15,164 +15,15 @@ import Typography from "@mui/material/Typography";
 import Answerbank from "./composite-componants/AnswerBank/AnswerBank";
 import Timer from "./components/Timer/Timer";
 import BasicModal from "./components/GameOverModal/GameOverModal";
+import PokemonHeader from "./components/PokemonHeader/PokemonHeader.js";
+import MenuListComposition from "./components/Test/test.js";
 import { useStyles } from "./App.styles.js";
+import pokemonNameGrab from './utils/pokemonNameGrab.js'
 
 import utils from "./utils";
 
 function App() {
-  const Pokemon = [
-    "Bulbasaur",
-    "Ivysaur",
-    "Venusaur",
-    "Charmander",
-    "Charmeleon",
-    "Charizard",
-    "Squirtle",
-    "Wartortle",
-    "Blastoise",
-    "Caterpie",
-    "Metapod",
-    "Butterfree",
-    "Weedle",
-    "Kakuna",
-    "Beedrill",
-    "Pidgey",
-    "Pidgeotto",
-    "Pidgeot",
-    "Rattata",
-    "Raticate",
-    "Spearow",
-    "Fearow",
-    "Ekans",
-    "Arbok",
-    "Pikachu",
-    "Raichu",
-    "Sandshrew",
-    "Sandslash",
-    "Nidoran",
-    "Nidorina",
-    "Nidoqueen",
-    "Nidoran",
-    "Nidorino",
-    "Nidoking",
-    "Clefairy",
-    "Clefable",
-    "Vulpix",
-    "Ninetales",
-    "Jigglypuff",
-    "Wigglytuff",
-    "Zubat",
-    "Golbat",
-    "Oddish",
-    "Gloom",
-    "Vileplume",
-    "Paras",
-    "Parasect",
-    "Venonat",
-    "Venomoth",
-    "Diglett",
-    "Dugtrio",
-    "Meowth",
-    "Persian",
-    "Psyduck",
-    "Golduck",
-    "Mankey",
-    "Primeape",
-    "Growlithe",
-    "Arcanine",
-    "Poliwag",
-    "Poliwhirl",
-    "Poliwrath",
-    "Abra",
-    "Kadabra",
-    "Alakazam",
-    "Machop",
-    "Machoke",
-    "Machamp",
-    "Bellsprout",
-    "Weepinbell",
-    "Victreebel",
-    "Tentacool",
-    "Tentacruel",
-    "Geodude",
-    "Graveler",
-    "Golem",
-    "Ponyta",
-    "Rapidash",
-    "Slowpoke",
-    "Slowbro",
-    "Magnemite",
-    "Magneton",
-    "Farfetch'd",
-    "Doduo",
-    "Dodrio",
-    "Seel",
-    "Dewgong",
-    "Grimer",
-    "Muk",
-    "Shellder",
-    "Cloyster",
-    "Gastly",
-    "Haunter",
-    "Gengar",
-    "Onix",
-    "Drowzee",
-    "Hypno",
-    "Krabby",
-    "Kingler",
-    "Voltorb",
-    "Electrode",
-    "Exeggcute",
-    "Exeggutor",
-    "Cubone",
-    "Marowak",
-    "Hitmonlee",
-    "Hitmonchan",
-    "Lickitung",
-    "Koffing",
-    "Weezing",
-    "Rhyhorn",
-    "Rhydon",
-    "Chansey",
-    "Tangela",
-    "Kangaskhan",
-    "Horsea",
-    "Seadra",
-    "Goldeen",
-    "Seaking",
-    "Staryu",
-    "Starmie",
-    "Mr. Mime",
-    "Scyther",
-    "Jynx",
-    "Electabuzz",
-    "Magmar",
-    "Pinsir",
-    "Tauros",
-    "Magikarp",
-    "Gyarados",
-    "Lapras",
-    "Ditto",
-    "Eevee",
-    "Vaporeon",
-    "Jolteon",
-    "Flareon",
-    "Porygon",
-    "Omanyte",
-    "Omastar",
-    "Kabuto",
-    "Kabutops",
-    "Aerodactyl",
-    "Snorlax",
-    "Articuno",
-    "Zapdos",
-    "Moltres",
-    "Dratini",
-    "Dragonair",
-    "Dragonite",
-    "Mewtwo",
-    "Mew"
-  ];
+
   // const Alert = forwardRef(function Alert(props, ref) {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });
@@ -187,6 +38,8 @@ function App() {
   const [success, setSuccess] = useState(false);
   const [score, setScore] = useState(0);
   const [session, setSession] = useState(true);
+  const [region, setRegion] = useState("Kanto")
+
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
@@ -212,9 +65,7 @@ function App() {
   };
 
   const handleSetNewPokemon = () => {
-    let i = Math.floor(Math.random() * 150);
-
-    setCurrentPokemon(Pokemon[i].toLowerCase());
+    setCurrentPokemon(pokemonNameGrab(region).name.toLowerCase());
   };
   const handleMatchCheck = (answers) => {
     setSuccess(utils.checkAnswerArray(answers, correctAnswerBank));
@@ -278,18 +129,18 @@ function App() {
     handleSuccess();
   }, [success]);
 
-  useEffect(() => {
-    let interval = null;
-    if (session) {
-      interval = setInterval(() => {
-        setSeconds((seconds) => seconds - 1);
-      }, 1000);
-    }
-    if (seconds === 0) {
-      setSession(false);
-    }
-    return () => clearInterval(interval);
-  }, [session, seconds]);
+  // useEffect(() => {
+  //   let interval = null;
+  //   if (session) {
+  //     interval = setInterval(() => {
+  //       setSeconds((seconds) => seconds - 1);
+  //     }, 1000);
+  //   }
+  //   if (seconds === 0) {
+  //     setSession(false);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [session, seconds]);
 
   function PokemonCardMedia({status, name, url}) {
     if (status === "pending") {
@@ -312,6 +163,9 @@ function App() {
 
   function AppDisplay({ name, url }) {
     return (
+      <Box>
+      <PokemonHeader region={region} setRegion={setRegion}/>
+      {/* <MenuListComposition /> */}
       <Paper className={classes.container} >
         <Card className={classes.cardContainer}>
         <PokemonCardMedia status ={status} name={name} url={url}/>
@@ -340,10 +194,17 @@ function App() {
         <BasicModal score={score} session={session} />
         </Card>
       </Paper>
+      </Box>
     );
   }
 
   return <AppDisplay name={name} url={url} />;
 }
 
+
 export default App;
+
+
+
+
+

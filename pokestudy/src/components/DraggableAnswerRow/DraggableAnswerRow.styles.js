@@ -18,6 +18,7 @@ export const useStyles = makeStyles((theme) =>({
   buttonContainer: {
     padding: "0.5vw",
     paddingTop: "1.5vw",
+    backgroundColor: '#d3d3d340'
   },
   //ripped from www.smogon.com/dex/ss/pokemon/abomasnow
   statBar: {

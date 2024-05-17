@@ -22,10 +22,15 @@ const Answerbank = ({
           <List>
           {stats.map((e, i) => {
               return (
-                <Paper variant="outlined" className={progress[i] ? classes.statBarLabelCorrect : classes.statBarLabel} key={`Attribute ${i}`}>
-                  <div>
+                <Paper sx={{
+                  backgroundColor: '#add8e6',
+                  // WebkitTransition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+                  // transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+                  // boxShadow: '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)'
+                }} elevation={0} variant="outlined" className={progress[i] ? classes.statBarLabelCorrect : classes.statBarLabel} key={`Attribute ${i}`}>
+                  
                     {e}
-                  </div>
+          
                 </Paper>
               );
             })}

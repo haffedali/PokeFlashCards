@@ -1,6 +1,7 @@
 import {makeStyles} from '@mui/styles';
 
-export const useStyles = makeStyles({
+
+export const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
         position: 'relative',
@@ -14,7 +15,8 @@ export const useStyles = makeStyles({
     },
     cardContainer: {
         width: '100%',
-        maxHeight: '100%'
+        maxHeight: '100%',
+        color: 'red'
     },
     circularProgress: {
         position: 'relative',
@@ -32,11 +34,10 @@ export const useStyles = makeStyles({
         outlineColor: 'blue',
     },
     cardContent: {
-        outline: 'solid',
-        outlineColor: 'blue'
+        backgroundColor: 'lightgray'
     },
     timer: {
         outline: 'solid',
         outlineColor: 'blue'
     }
-})
+}))

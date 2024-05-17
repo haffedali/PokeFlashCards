@@ -16,6 +16,7 @@ const DraggableAnswerRow = ({
   const classes = useStyles(colorWidth);
   const onDragStart = (e, i) => {
     console.log(e,i)
+    
     dragItem.current = index;
     console.log("drag start", dragItem.current);
   };
@@ -28,7 +29,7 @@ const DraggableAnswerRow = ({
   return (
     <Paper
       className={classes.statBarContainer}
-      elevation={5}
+      elevation={20}
       draggable
       onDragStart={onDragStart}
       onDragEnter={onDragEnter}
