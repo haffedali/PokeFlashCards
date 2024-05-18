@@ -129,6 +129,10 @@ function App() {
     handleSuccess();
   }, [success]);
 
+  useEffect(()=>{
+    handleSetNewPokemon()
+  }, [region])
+
   // useEffect(() => {
   //   let interval = null;
   //   if (session) {

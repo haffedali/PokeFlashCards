@@ -74,6 +74,7 @@ const PokemonHeader = ({region, setRegion}) => {
         >
         <MenuIcon />
         </IconButton>
+          {region}
         <Popper
           open={open}
           anchorEl={anchorRef.current}

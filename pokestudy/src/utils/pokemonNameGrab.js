@@ -13,7 +13,7 @@ function getRange(region){
             return [1,150]
         case "Johto":
             return [151,250]
-        case "Hoen":
+        case "Hoenn":
             return [251,385]
         case "Sinnoh":
             return [386,493]
