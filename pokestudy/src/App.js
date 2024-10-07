@@ -1,32 +1,48 @@
-import "./App.css";
-import {
-  useEffect,
-  useState,
-  useRef,
-} from "react";
-import {Card, Paper} from '@mui/material'
+// Imports (grouped and ordered)
+import React, { useEffect, useState, useRef } from "react";
+import { Card, Paper, Button, Box, CircularProgress, CardMedia, Typography } from '@mui/material';
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Box from '@mui/material/Box';
-import CircularProgress from "@mui/material/CircularProgress";
-import CardMedia from "@mui/material/CardMedia";
-import { Button } from "@mui/material";
-import Typography from "@mui/material/Typography";
+
+// Custom components
 import Answerbank from "./composite-componants/AnswerBank/AnswerBank";
 import Timer from "./components/Timer/Timer";
 import BasicModal from "./components/GameOverModal/GameOverModal";
 import PokemonHeader from "./components/PokemonHeader/PokemonHeader.js";
-import MenuListComposition from "./components/Test/test.js";
-import { useStyles } from "./App.styles.js";
-import pokemonNameGrab from './utils/pokemonNameGrab.js'
 
+// Styles and utilities
+import { useStyles } from "./App.styles.js";
+import pokemonNameGrab from './utils/pokemonNameGrab.js';
 import utils from "./utils";
+
+// Constants (move to separate file if grows larger)
+const API_BASE_URL = 'https://pokeapi.co/api/v2/pokemon/';
+const INITIAL_SECONDS = 1500;
 
 function App() {
 
   // const Alert = forwardRef(function Alert(props, ref) {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });
+  const [gameState, setGameState] = useState({
+    answerBank: [],
+    correctAnswerBank: [],
+    currentPokemon: "pikachu",
+    name: "",
+    url: "",
+    status: "pending",
+    progress: new Array(6),
+    seconds: INITIAL_SECONDS,
+    success: false,
+    score: 0,
+    session: true,
+    region: "Kanto"
+  })
+
+  //Refs
+  const dragItem = useRef(null);
+  const dragOverItem = useRef(null);
+
   const [answerBank, setAnswerBank] = useState([]);
   const [correctAnswerBank, setCorrectAnswerBank] = useState([]);
   const [currentPokemon, setCurrentPokemon] = useState("pikachu");
@@ -40,8 +56,7 @@ function App() {
   const [session, setSession] = useState(true);
   const [region, setRegion] = useState("Kanto")
 
-  const dragItem = useRef(null);
-  const dragOverItem = useRef(null);
+
 
   const classes = useStyles();
   const handleSort = (answerBank, setAnswerBank) => {
@@ -98,21 +113,27 @@ function App() {
     //handleSessionStop();
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setStatus("pending");
-      const data = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
-      );
-      const json = await data.json();
-      setCorrectAnswerBank(json.stats);
-      setName(json.name);
-      setUrl(json.sprites.other["official-artwork"].front_default);
-      const randomizedStatArray = utils.randomizedStats(json.stats);
-      setAnswerBank(randomizedStatArray);
-    };
+  // Data fetching
+  const fetchPokemonData = async () => {
+    setStatus("pending");
+    const data = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+    );
+    const json = await data.json();
+    setCorrectAnswerBank(json.stats);
+    setName(json.name);
+    setUrl(json.sprites.other["official-artwork"].front_default);
+    const randomizedStatArray = utils.randomizedStats(json.stats);
+    setAnswerBank(randomizedStatArray);
+  };
+  
 
-    fetchData()
+
+
+ // Effect hooks
+ // update these last!
+  useEffect(() => {
+    fetchPokemonData()
       .catch(console.error)
       .then(
         () => setStatus("complete"),
