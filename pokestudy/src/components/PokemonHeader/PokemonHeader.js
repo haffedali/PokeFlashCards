@@ -32,7 +32,7 @@ const PokemonHeader = ({region, setRegion}) => {
       return;
     }
     console.log(event.target.textContent)
-    setRegion(event.target.textContent)
+    setRegion({region: event.target.textContent})
     setOpen(false);
   };
 

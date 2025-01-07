@@ -1,137 +1,192 @@
-import "./App.css";
-import {
-  useEffect,
-  useState,
-  useRef,
-} from "react";
-import {Card, Paper} from '@mui/material'
+// Imports (grouped and ordered)
+import React, { useEffect, useState, useRef } from "react";
+import { Card, Paper, Button, Box, CircularProgress, CardMedia, Typography } from '@mui/material';
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Box from '@mui/material/Box';
-import CircularProgress from "@mui/material/CircularProgress";
-import CardMedia from "@mui/material/CardMedia";
-import { Button } from "@mui/material";
-import Typography from "@mui/material/Typography";
+
+// Custom components
 import Answerbank from "./composite-componants/AnswerBank/AnswerBank";
 import Timer from "./components/Timer/Timer";
 import BasicModal from "./components/GameOverModal/GameOverModal";
 import PokemonHeader from "./components/PokemonHeader/PokemonHeader.js";
-import MenuListComposition from "./components/Test/test.js";
-import { useStyles } from "./App.styles.js";
-import pokemonNameGrab from './utils/pokemonNameGrab.js'
+import  useGameState  from "./hooks/useGameState.js";
+import useCount from "./hooks/useCount.js";
 
+// Styles and utilities
+import { useStyles } from "./App.styles.js";
+import pokemonNameGrab from './utils/pokemonNameGrab.js';
 import utils from "./utils";
 
+// Constants (move to separate file if grows larger)
+const API_BASE_URL = 'https://pokeapi.co/api/v2/pokemon/';
+const INITIAL_SECONDS = 1500;
+
 function App() {
+  const {count, setCount} = useCount()
+  const classes = useStyles();
+
+  const {
+    cat,
+    gameState,
+    handleSetNewPokemon,
+    dragItem,
+    dragOverItem,
+    handleSort,
+    handleSingleMatchCheck,
+    handleSessionStop,
+    updateGameState
+  } = useGameState()
+
+  const {
+    answerBank,
+    correctAnswerBank,
+    currentPokemon,
+    name,
+    url,
+    status,
+    progress,
+    seconds,
+    success,
+    score,
+    session,
+    region,
+  } = gameState;
+
+
+
 
   // const Alert = forwardRef(function Alert(props, ref) {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });
-  const [answerBank, setAnswerBank] = useState([]);
-  const [correctAnswerBank, setCorrectAnswerBank] = useState([]);
-  const [currentPokemon, setCurrentPokemon] = useState("pikachu");
-  const [name, setName] = useState();
-  const [url, setUrl] = useState();
-  const [status, setStatus] = useState("pending");
-  const [progress, setProgress] = useState(new Array(6));
-  const [seconds, setSeconds] = useState(1500);
-  const [success, setSuccess] = useState(false);
-  const [score, setScore] = useState(0);
-  const [session, setSession] = useState(true);
-  const [region, setRegion] = useState("Kanto")
+//   const [gameState, setGameState] = useState({
+//     answerBank: [],
+//     correctAnswerBank: [],
+//     currentPokemon: "pikachu",
+//     name: "",
+//     url: "",
+//     status: "pending",
+//     progress: new Array(6),
+//     seconds: INITIAL_SECONDS,
+//     success: false,
+//     score: 0,
+//     session: true,
+//     region: "Kanto"
+//   })
 
-  const dragItem = useRef(null);
-  const dragOverItem = useRef(null);
+//   //Refs
+//   const dragItem = useRef(null);
+//   const dragOverItem = useRef(null);
 
-  const classes = useStyles();
-  const handleSort = (answerBank, setAnswerBank) => {
-    console.log("fired");
-    // console.log(dragItem.current, dragOverItem.current);
-    let _answerBank = [...answerBank];
+//   const [answerBank, setAnswerBank] = useState([]);
+//   const [correctAnswerBank, setCorrectAnswerBank] = useState([]);
+//   const [currentPokemon, setCurrentPokemon] = useState("pikachu");
+//   const [name, setName] = useState();
+//   const [url, setUrl] = useState();
+//   const [status, setStatus] = useState("pending");
+//   const [progress, setProgress] = useState(new Array(6));
+//   const [seconds, setSeconds] = useState(1500);
+//   const [success, setSuccess] = useState(false);
+//   const [score, setScore] = useState(0);
+//   const [session, setSession] = useState(true);
+//   const [region, setRegion] = useState("Kanto")
 
-    [_answerBank[dragItem.current], _answerBank[dragOverItem.current]] = [
-      _answerBank[dragOverItem.current],
-      _answerBank[dragItem.current],
-    ];
-    // const draggedItem = _answerBank.splice(dragItem.current, 1)[0];
-    console.log(dragItem.current);
-    console.log(dragOverItem.current);
 
-    //reset refs
-    dragItem.current = null;
-    dragOverItem.current = null;
-    // console.log(_answerBank, answerBank);
-    setAnswerBank(_answerBank);
-  };
 
-  const handleSetNewPokemon = () => {
-    setCurrentPokemon(pokemonNameGrab(region).name.toLowerCase());
-  };
-  const handleMatchCheck = (answers) => {
-    setSuccess(utils.checkAnswerArray(answers, correctAnswerBank));
-  };
-  const handleSingleMatchCheck = () => {
-    let _progress = utils.checkSingleAnswers(answerBank, correctAnswerBank);
+//   const classes = useStyles();
+// //   const handleSort = (answerBank, setAnswerBank) => {
+// //     console.log("fired");
+// //     // console.log(dragItem.current, dragOverItem.current);
+// //     let _answerBank = [...answerBank];
 
-    setProgress(_progress);
-  };
+// //     [_answerBank[dragItem.current], _answerBank[dragOverItem.current]] = [
+// //       _answerBank[dragOverItem.current],
+// //       _answerBank[dragItem.current],
+// //     ];
+// //     // const draggedItem = _answerBank.splice(dragItem.current, 1)[0];
+// //     console.log(dragItem.current);
+// //     console.log(dragOverItem.current);
 
-  // const handleClose = (event, reason) => {
-  //   if (reason === 'clickaway') {
-  //     return;
-  //   }
-  //   setSuccess(false);
-  // };
+// //     //reset refs
+// //     dragItem.current = null;
+// //     dragOverItem.current = null;
+// //     // console.log(_answerBank, answerBank);
+// //     setAnswerBank(_answerBank);
+// //   };
 
-  const handleSessionStop = () => {
-    setSession(false);
-  };
+// //   const handleSetNewPokemon = () => {
+// //     setCurrentPokemon(pokemonNameGrab(region).name.toLowerCase());
+// //   };
+// //   const handleMatchCheck = (answers) => {
+// //     setSuccess(utils.checkAnswerArray(answers, correctAnswerBank));
+// //   };
+// //   const handleSingleMatchCheck = () => {
+// //     let _progress = utils.checkSingleAnswers(answerBank, correctAnswerBank);
 
-  const handleSuccess = () => {
-    let _score = score;
-    if (success) {
-      _score = score + 1;
-      handleSetNewPokemon();
-    }
-    setScore(_score);
-    setSuccess(false);
-    //handleSessionStop();
-  };
+// //     setProgress(_progress);
+// //   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setStatus("pending");
-      const data = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
-      );
-      const json = await data.json();
-      setCorrectAnswerBank(json.stats);
-      setName(json.name);
-      setUrl(json.sprites.other["official-artwork"].front_default);
-      const randomizedStatArray = utils.randomizedStats(json.stats);
-      setAnswerBank(randomizedStatArray);
-    };
+// //   // const handleClose = (event, reason) => {
+// //   //   if (reason === 'clickaway') {
+// //   //     return;
+// //   //   }
+// //   //   setSuccess(false);
+// //   // };
 
-    fetchData()
-      .catch(console.error)
-      .then(
-        () => setStatus("complete"),
-        () => setStatus("failed")
-      );
-  }, [currentPokemon]);
+// //   const handleSessionStop = () => {
+// //     setSession(false);
+// //   };
 
-  useEffect(() => {
-    handleSingleMatchCheck();
-    handleMatchCheck(answerBank);
-  }, [answerBank]);
+// //   const handleSuccess = () => {
+// //     let _score = score;
+// //     if (success) {
+// //       _score = score + 1;
+// //       handleSetNewPokemon();
+// //     }
+// //     setScore(_score);
+// //     setSuccess(false);
+// //     //handleSessionStop();
+// //   };
 
-  useEffect(() => {
-    handleSuccess();
-  }, [success]);
+// //   // Data fetching
+// //   const fetchPokemonData = async () => {
+// //     setStatus("pending");
+// //     const data = await fetch(
+// //       `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+// //     );
+// //     const json = await data.json();
+// //     setCorrectAnswerBank(json.stats);
+// //     setName(json.name);
+// //     setUrl(json.sprites.other["official-artwork"].front_default);
+// //     const randomizedStatArray = utils.randomizedStats(json.stats);
+// //     setAnswerBank(randomizedStatArray);
+// //   };
+  
 
-  useEffect(()=>{
-    handleSetNewPokemon()
-  }, [region])
+
+
+// //  // Effect hooks
+// //  // update these last!
+// //   useEffect(() => {
+// //     fetchPokemonData()
+// //       .catch(console.error)
+// //       .then(
+// //         () => setStatus("complete"),
+// //         () => setStatus("failed")
+// //       );
+// //   }, [currentPokemon]);
+
+// //   useEffect(() => {
+// //     handleSingleMatchCheck();
+// //     handleMatchCheck(answerBank);
+// //   }, [answerBank]);
+
+// //   useEffect(() => {
+// //     handleSuccess();
+// //   }, [success]);
+
+// //   useEffect(()=>{
+// //     handleSetNewPokemon()
+// //   }, [region])
 
   // useEffect(() => {
   //   let interval = null;
@@ -169,6 +224,7 @@ function App() {
     return (
       <Box className={classes.body}>
       <PokemonHeader region={region} setRegion={setRegion}/>
+      <PokemonHeader region={region} setRegion={updateGameState}/>
       {/* <MenuListComposition /> */}
       <Paper className={classes.container} >
         <Card className={classes.cardContainer}>
@@ -183,7 +239,7 @@ function App() {
             dragOverItem={dragOverItem}
             handleSort={handleSort}
             answerBank={answerBank}
-            setAnswerBank={setAnswerBank}
+            setAnswerBank={updateGameState}
             progress={progress}
           />
         </CardContent>
@@ -200,7 +256,7 @@ function App() {
     );
   }
 
-  return <AppDisplay name={name} url={url} />;
+ return <AppDisplay name={name} url={url} />
 }
 
 
