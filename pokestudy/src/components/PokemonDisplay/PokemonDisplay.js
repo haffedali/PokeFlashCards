@@ -10,15 +10,16 @@ import {useStyles} from './PokemonDisplay.styles'
 export default function PokemonDisplay({name, url, status}) {
   const classes=useStyles();
     return (
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, background:"lighblue" }} className={classes.body}>
         <CardMedia
           component="img"
           alt={name}
           height="140"
           image={url}
+          className={classes.body}
         />
         <CardContent className={classes.cardBase}>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography className={classes.cardName} gutterBottom variant="h5" component="div">
             {name}
           </Typography>
 

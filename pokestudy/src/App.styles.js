@@ -39,5 +39,8 @@ export const useStyles = makeStyles((theme) => ({
     timer: {
         outline: 'solid',
         outlineColor: 'blue'
+    },
+    body: {
+        background: 'lightyellow'
     }
 }))

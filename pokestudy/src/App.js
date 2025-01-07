@@ -167,18 +167,16 @@ function App() {
 
   function AppDisplay({ name, url }) {
     return (
-      <Box>
+      <Box className={classes.body}>
       <PokemonHeader region={region} setRegion={setRegion}/>
       {/* <MenuListComposition /> */}
       <Paper className={classes.container} >
         <Card className={classes.cardContainer}>
         <PokemonCardMedia status ={status} name={name} url={url}/>
-        {/* <Timer /> */}
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Timer className= {classes.timer} session={session} time={seconds} />
           <Answerbank
             answers={answerBank}
             dragItem={dragItem}

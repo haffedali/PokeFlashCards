@@ -4,7 +4,6 @@ const Timer = ({time}) => {
   return (
     <div >
       <div>
-        {time}s
       </div>
       <div>
 
